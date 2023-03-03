@@ -68,8 +68,16 @@ export const headerTimeKeys = [
         labelName: "09:00 to 10:00 PM"
     },
     {
+        keyName: "22_23_PM",
+        labelName: "10:00 to 11:00 PM"
+    },
+    {
+        keyName: "23_24_PM",
+        labelName: "11:00 to 12:00 AM"
+    },
+    {
         keyName: "night",
-        labelName: "Night"
+        labelName: "Night (12:00 to 5:00 AM)"
     },
     {
         keyName: "total",
@@ -84,7 +92,8 @@ function getHoursSectionData(time_distance: any) {
         for (let j = 0; j < time_distance.length; j++) {
             const { distance, start_hour } = time_distance[j],
                 startHourNumber = Number(start_hour);
-            if ((startHourNumber >= 22 && startHourNumber <= 23) || (startHourNumber >= 0 && startHourNumber <= 4)) {
+            // if ((startHourNumber >= 22 && startHourNumber <= 23) || (startHourNumber >= 0 && startHourNumber <= 4)) {
+            if (startHourNumber >= 0 && startHourNumber <= 4) {
                 if (Object.prototype.hasOwnProperty.call(timeDistanceInfo, "night")) {
                     timeDistanceInfo["night"] = +(timeDistanceInfo["night"] + Number(distance)).toFixed(12);
                 } else {

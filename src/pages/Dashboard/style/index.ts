@@ -23,9 +23,19 @@ export default makeStyles({
     tableHeadingContainer: {
         background: "#ECEBF1",
     },
+    stickyLeftHeader: {
+        position: "sticky",
+        left: 0,
+        background: "#ECEBF1",
+    },
+    stickyLeftCell: {
+        position: "sticky",
+        left: 0,
+        background: "#ffffff",
+    },
     tableHeading: {
         "&.MuiTableCell-root": {
-            padding: "12px 0 12px 16px",
+            padding: "12px 12px 12px 16px",
             whiteSpace: "nowrap",
             color: COLORS.PRIMARY_COLOR,
             fontWeight: "bold"

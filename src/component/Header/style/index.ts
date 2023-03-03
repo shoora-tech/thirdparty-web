@@ -13,7 +13,7 @@ export default makeStyles({
         top: "0",
         width: "100%",
         backgroundColor: "#ffffff",
-        zIndex: 100
+        zIndex: 100000
     },
     logoHeader: {
         height: "40px"

@@ -99,7 +99,7 @@ export default function Dashboard() {
         const { vehicleName, filterDate } = filterProps || {},
             params = {
                 vehicle_number: vehicleName,
-                date: filterDate,
+                date: filterDate || getCurrentDateFormatYYYYMMDD(),
                 page_no: 1,
                 page_size: 200,
             };
@@ -111,6 +111,7 @@ export default function Dashboard() {
         onSuccess: (data: any) => {
             const time = formateTimeAMPM(new Date());
             const { results } = data || {};
+            console.log(results);
             if (Array.isArray(results)) {
                 const tableData = generateTableData(results);
                 setVehicleTableData(tableData);
@@ -235,7 +236,7 @@ export default function Dashboard() {
                         <Table sx={{ minWidth: 650 }} aria-label="simple table">
                             <TableHead className={classes.tableHeadingContainer}>
                                 <TableRow>
-                                    <TableCell className={classes.tableHeading}>Vehicle Number</TableCell>
+                                    <TableCell className={`${classes.tableHeading} ${classes.stickyLeftHeader}`}>Vehicle Number</TableCell>
                                     <TableCell className={classes.tableHeading} align="left">Driver Name</TableCell>
                                     <TableCell className={classes.tableHeading} align="left">Location</TableCell>
                                     <TableCell className={`${classes.tableHeading}`} align="left">Last Update</TableCell>
@@ -266,7 +267,7 @@ export default function Dashboard() {
                                         {/* <TableCell component="th" scope="row">
                                             {row.vehicleNumber}
                                         </TableCell> */}
-                                        <TableCell align="left">{row?.vehicle_number || "-"}</TableCell>
+                                        <TableCell className={classes.stickyLeftCell} align="left">{row?.vehicle_number || "-"}</TableCell>
                                         <TableCell className={classes.noWrapclass} align="left">{row?.latest_info?.driver_name || "-"}</TableCell>
                                         <TableCell align="left">{row?.latest_info?.location || "-"}</TableCell>
                                         <TableCell className={classes.noWrapclass} align="left">{getEpochTime(row?.latest_info?.latest_status_time)}</TableCell>
