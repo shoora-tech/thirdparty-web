@@ -33,3 +33,6 @@ export function getEpochTime(seconds: any) {
 }
 
 
+export function getCurrentDateFormatYYYYMMDD() {
+    return (new Date()).toISOString().split('T')[0]
+}

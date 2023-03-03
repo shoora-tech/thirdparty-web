@@ -25,7 +25,7 @@ import { getData } from "../../api/apiurl";
 
 import { vehicleData } from "../../utility/datautility";
 import Grid from '@mui/material/Grid';
-import { formateTimeAMPM, getEpochTime } from "../../utility/calendarutility";
+import { formateTimeAMPM, getEpochTime, getCurrentDateFormatYYYYMMDD } from "../../utility/calendarutility";
 
 import { headerTimeKeys, generateTableData } from "./helper";
 
@@ -44,7 +44,7 @@ export default function Dashboard() {
     const classes = useStyles();
     const [filterState, setFilterState] = useState({
         vehicleName: "",
-        filterDate: new Date()
+        filterDate: getCurrentDateFormatYYYYMMDD()
     });
     const [showClearFilter, setShowClearFilter] = useState(false);
     const [lastRefreshTime, setLastRefreshTime] = useState<any>(() => formateTimeAMPM(new Date()));
@@ -99,7 +99,9 @@ export default function Dashboard() {
         const { vehicleName, filterDate } = filterProps || {},
             params = {
                 vehicle_number: vehicleName,
-                date: filterDate
+                date: filterDate,
+                page_no: 1,
+                page_size: 200,
             };
         const response = await getData('monitor/api/v1/meru-vehicle-stats/', params);
         return response?.data;
@@ -146,7 +148,7 @@ export default function Dashboard() {
     }
 
     function clearFilterHndlr() {
-        setFilterState((prevState: any) => ({ ...prevState, filterDate: "", vehicleName: "" }))
+        setFilterState((prevState: any) => ({ ...prevState, filterDate: getCurrentDateFormatYYYYMMDD(), vehicleName: "" }))
         mutateVehicleHistory(undefined);
         setShowClearFilter(false);
     }
@@ -291,12 +293,13 @@ export default function Dashboard() {
                     </TableContainer>
                     {isLoading && <Box sx={{
                         position: "absolute", top: 0, left: 0,
-                        display: "flex", justifyContent: "center", alignItems: "center",
+                        display: "flex", justifyContent: "center",
+                        paddingTop: 5,
                         width: "100%", height: "100%",
                         backgroundColor: "#f2f2f2",
                         opacity: 0.5
                     }}>
-                        <CircularProgress />
+                        <CircularProgress sx={{ mt: 5 }} />
                     </Box>}
                 </Box>
                 {/* </Box> */}
